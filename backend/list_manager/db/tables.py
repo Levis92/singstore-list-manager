@@ -20,7 +20,7 @@ class SongListItem(Base):
     __tablename__ = 'added_song'
 
     id = Column(Integer, primary_key=True)
-    song_id = Column(Integer, ForeignKey('song.id'))
+    song_id = Column(Integer, ForeignKey('song.id'), unique=True)
     song = relationship(Song)
 
  

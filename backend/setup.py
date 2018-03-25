@@ -8,6 +8,14 @@ setup(
     version='0.1.4',
     description='',
     author='Anton Levholm',
-    packages=find_packages(exclude=('tests', 'docs')),
-    install_requires=['flask', 'sqlalchemy', 'sqlalchemy_utils', 'psycopg2', 'scrapy']
+    packages=find_packages(
+        exclude=('tests', 'docs')
+    ),
+    install_requires=[
+        'flask',
+        'sqlalchemy',
+        'sqlalchemy_utils',
+        'psycopg2',
+        'scrapy'
+    ]
 )
