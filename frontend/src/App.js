@@ -7,7 +7,8 @@ import SearchBar from './components/searchbar/index';
 class App extends Component {
   state = {
     allSongs: [],
-    addedSongs: []
+    addedSongs: [],
+    ready: false
   }
 
   componentWillMount() {
@@ -19,13 +20,14 @@ class App extends Component {
       .then((response) => response.json())
       .then((songs) => {
         this.setState({
-          allSongs: songs
+          allSongs: songs,
+          ready: true
         })
       });
   }
 
   render() {
-    const { allSongs } = this.state;
+    const { allSongs, ready } = this.state;
 
     return (
       <Container className="App">
@@ -34,7 +36,7 @@ class App extends Component {
         </header>
         <AvailableSongs>
           <SearchBar />
-          <SongList songs={allSongs} />
+          <SongList songs={allSongs} ready={ready} />
         </AvailableSongs>
       </Container>
     );
@@ -53,6 +55,6 @@ const Container = styled.main`
 
 const AvailableSongs = styled.article`
   max-width: 500px;
-  margin: 15px 25px;
-  height: 100%;
+  margin: 0 25px;
+  height: 85%;
 `
