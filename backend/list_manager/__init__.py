@@ -11,6 +11,7 @@ app = Flask(__name__)
 def api():
     return jsonify({
         'Get all songs': 'GET /songs',
+        'Get song list': 'GET /songs/list',
         'Add song to list': 'POST /songs/add/<id>',
         'Remove song from list': 'DELETE /songs/remove/<id>'
     })
@@ -20,6 +21,11 @@ def api():
 def get_songs():
     songs = get_all_songs()
     return jsonify(songs)
+
+
+@app.route('/songs/list')
+def get_list():
+    pass
 
 
 @app.route('/songs/add/<int:song_id>', methods=['POST'])
