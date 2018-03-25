@@ -9,5 +9,5 @@ setup(
     description='',
     author='Anton Levholm',
     packages=find_packages(exclude=('tests', 'docs')),
-    install_requires=['flask', 'requests', 'scrapy']
+    install_requires=['flask', 'sqlalchemy', 'sqlalchemy_utils', 'psycopg2', 'scrapy']
 )

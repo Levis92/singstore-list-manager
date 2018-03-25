@@ -4,7 +4,7 @@
 . ./venv/bin/activate
 
 # Flask entry point
-export FLASK_APP=singstore_list_manager.__init__
+export FLASK_APP=list_manager.__init__
 # Flask debug mode, live code reload and debugger activated
 export FLASK_DEBUG=1
 

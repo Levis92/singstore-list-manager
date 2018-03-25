@@ -102,3 +102,6 @@ ENV/
 
 # Scraping
 songs.json
+
+# Config
+config.py
