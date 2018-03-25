@@ -1,4 +1,5 @@
 # Config parameters
+import os
 
 HOST = 'localhost'
 USER = 'postgres'
