@@ -1,18 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import SongList from './components/song-list/index';
 
 class App extends Component {
+  state = {
+    allSongs: [],
+    addedSongs: []
+  }
+
+  componentWillMount() {
+    this.fetchAllSongs();
+  }
+
+  fetchAllSongs = () => {
+    fetch(`${process.env.REACT_APP_API_HOST}/songs`)
+      .then((response) => response.json())
+      .then((songs) => {
+        this.setState({
+          allSongs: songs
+        })
+      });
+  }
+
   render() {
+    const { allSongs } = this.state;
+
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">SingStore List Manager</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <SongList songs={allSongs} />
       </div>
     );
   }
