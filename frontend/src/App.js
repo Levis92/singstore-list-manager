@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import './App.css';
 import SongList from './components/song-list/index';
 import SearchBar from './components/searchbar/index';
+import {
+  Container,
+  Header,
+  AvailableSongs,
+  AddedSongs,
+  AddedTitle
+} from './App.style';
 
 class App extends Component {
   state = {
@@ -14,6 +20,7 @@ class App extends Component {
 
   componentWillMount() {
     this.fetchAllSongs();
+    this.fetchAddedSongs();
   }
 
   fetchAllSongs = () => {
@@ -27,6 +34,16 @@ class App extends Component {
       });
   }
 
+  fetchAddedSongs = () => {
+    fetch(`${process.env.REACT_APP_API_HOST}/songs/list`)
+      .then((response) => response.json())
+      .then((songs) => {
+        this.setState({
+          addedSongs: songs
+        })
+      });
+  }
+
   updateSearch = (changeEvent) => {
     const searchKeyword = changeEvent.target.value;
     this.setState({
@@ -35,18 +52,22 @@ class App extends Component {
   }
 
   render() {
-    const { allSongs, ready, searchKeyword } = this.state;
+    const { allSongs, addedSongs, ready, searchKeyword } = this.state;
     const filteredSongs = allSongs.filter(filterSearch(searchKeyword));
 
     return (
       <Container className="App">
-        <header className="App-header">
+        <Header className="App-header">
           <h1 className="App-title">SingStore List Manager</h1>
-        </header>
+        </Header>
         <AvailableSongs>
           <SearchBar updateSearch={this.updateSearch} />
           <SongList songs={filteredSongs} ready={ready} />
         </AvailableSongs>
+        <AddedSongs>
+          <AddedTitle>Added songs</AddedTitle>
+          <SongList songs={addedSongs} ready={ready} />
+        </AddedSongs>
       </Container>
     );
   }
@@ -54,27 +75,6 @@ class App extends Component {
 
 export default App;
 
-
-const Container = styled.main`
-  background-image: linear-gradient(
-    to right,
-    #b8cbb8 0%,
-    #b8cbb8 0%,
-    #b465da 0%,
-    #cf6cc9 33%,
-    #ee609c 66%,
-    #ee609c 100%
-  );
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-`
-
-const AvailableSongs = styled.article`
-  max-width: 500px;
-  margin: 0 25px;
-  height: 85%;
-`
 
 const filterSearch = (searchKeyword) =>
   (song) => {
