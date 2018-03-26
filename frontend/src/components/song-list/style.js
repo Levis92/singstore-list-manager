@@ -19,11 +19,12 @@ export const Song = styled.li`
   border-radius: 0.2em;
   background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   box-shadow: 0 1px 1px 1px rgba(66,66,66,0.1);
+  position: relative;
 `
 
 export const CoverImage = styled.img`
   height: 100%;
-  width: 100px;
+  min-width: 100px;
   border-radius: 0.2em 0 0 0.2em;
 
   ${props => props.secondary && css`
@@ -36,6 +37,7 @@ export const Details = styled.section`
   display: flex;
   flex-direction: column;
   margin-left: 15px;
+  margin-right: 50px;
 `
 
 export const Title = styled.h3`
@@ -65,4 +67,25 @@ export const Artist = styled.h4`
     width: 150px;
     height: 10px;
   `}
+`
+
+export const AddRemoveIcon = styled.svg`
+  --icon-color: ${props => props.primary ? 'red' : 'green'};
+  --rotation: ${props => props.primary ? '45deg' : '0deg'};
+  border: none;
+  outline: none;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  right: 10px;
+  transform: rotate(var(--rotation));
+  &:hover {
+    cursor: pointer;
+  }
+  #Combined-Shape {
+    fill: var(--icon-color);
+  }
+  #Oval {
+    stroke: var(--icon-color);
+  }
 `
