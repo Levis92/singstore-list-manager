@@ -1,20 +1,29 @@
 import styled, { css } from 'styled-components';
 
 export const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
-  height: 90%;
+  height: 100%;
   width: 100%;
   overflow-y: scroll;
+  ::-webkit-scrollbar { 
+    display: none; 
+  }
 `
 
 export const Song = styled.li`
   --placeholder-color: rgba(250,250,250,0.6);
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   height: 100px;
   width: 100%;
+  min-width: 300px;
+  max-width: 500px;
   margin: 5px 0;
   border-radius: 0.2em;
   background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -72,12 +81,12 @@ export const Artist = styled.h4`
 export const AddRemoveIcon = styled.svg`
   --icon-color: ${props => props.primary ? 'red' : 'green'};
   --rotation: ${props => props.primary ? '45deg' : '0deg'};
-  border: none;
-  outline: none;
+  --reverse-rotation: ${props => props.primary ? '0deg' : '45deg'};
   width: 35px;
   height: 35px;
   position: absolute;
   right: 10px;
+  transition: transform 0.3s;
   transform: rotate(var(--rotation));
   &:hover {
     cursor: pointer;
@@ -88,4 +97,14 @@ export const AddRemoveIcon = styled.svg`
   #Oval {
     stroke: var(--icon-color);
   }
+  @keyframes rotateIcon {
+    from { transform: rotate(var(--reverse-rotation)); }
+    to { transform: rotate(var(--rotation)); }
+  }
+`
+
+export const IconWrapper = styled.a`
+  height: 100%;
+  display: flex;
+  align-items: center;
 `

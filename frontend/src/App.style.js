@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.main`
   display: grid;
   grid-template-columns: [header1] 50% [header2] 50%;
-  grid-template-rows: [header] 70px [main] auto;
+  grid-template-rows: [header] 10vh [main] 90vh;
   background-image: linear-gradient(
     to right,
     #b8cbb8 0%,
@@ -23,26 +23,29 @@ export const Header = styled.header`
   grid-column-end: span 2;
   grid-row-start: header;
   grid-row-end: header;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
-export const AvailableSongs = styled.article`
-  max-width: 500px;
-  margin: 0 25px;
+const SongsList = styled.article`
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 25px;
   height: 85%;
+  grid-row-start: main;
+  grid-row-end: main;
+`
+
+export const AvailableSongs = SongsList.extend`
   grid-column-start: header1;
   grid-column-end: header1;
-  grid-row-start: main;
-  grid-row-end: main;
 `
 
-export const AddedSongs = styled.article`
-  max-width: 500px;
-  margin: 0 25px;
-  height: 85%;
+export const AddedSongs = SongsList.extend`
   grid-column-start: header2;
   grid-column-end: header2;
-  grid-row-start: main;
-  grid-row-end: main;
 `
 
 export const AddedTitle = styled.h2`

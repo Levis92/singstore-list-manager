@@ -23,6 +23,17 @@ class App extends Component {
     this.fetchAddedSongs();
   }
 
+  componentDidMount() {
+    this.intervalId = window.setInterval(
+      this.fetchAddedSongs,
+      30000
+    );
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.intervalId);
+  }
+
   fetchAllSongs = () => {
     fetch(`${process.env.REACT_APP_API_HOST}/songs`)
       .then((response) => response.json())
@@ -53,7 +64,9 @@ class App extends Component {
 
   render() {
     const { allSongs, addedSongs, ready, searchKeyword } = this.state;
-    const filteredSongs = allSongs.filter(filterSearch(searchKeyword));
+    const filteredSongs = allSongs
+      .filter(filterSearch(searchKeyword))
+      .slice(0, 150);
 
     return (
       <Container className="App">
@@ -62,11 +75,21 @@ class App extends Component {
         </Header>
         <AvailableSongs>
           <SearchBar updateSearch={this.updateSearch} />
-          <SongList songs={filteredSongs} ready={ready} />
+          <SongList
+            songs={filteredSongs}
+            addedSongs={addedSongs}
+            fetchAddedSongs={this.fetchAddedSongs}
+            ready={ready}
+          />
         </AvailableSongs>
         <AddedSongs>
           <AddedTitle>Added songs</AddedTitle>
-          <SongList songs={addedSongs} ready={ready} />
+          <SongList
+            songs={addedSongs}
+            addedSongs={addedSongs}
+            fetchAddedSongs={this.fetchAddedSongs}
+            ready={ready}
+          />
         </AddedSongs>
       </Container>
     );
@@ -83,5 +106,5 @@ const filterSearch = (searchKeyword) =>
     || compareStrings(song.artist, searchKeyword)
   }
 
-  const compareStrings = (string1, string2) =>
-    string1.toLowerCase().includes(string2.toLowerCase())
+  const compareStrings = (target, comparator) =>
+    target.toLowerCase().includes(comparator.toLowerCase())
