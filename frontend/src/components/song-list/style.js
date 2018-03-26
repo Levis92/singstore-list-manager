@@ -97,10 +97,6 @@ export const AddRemoveIcon = styled.svg`
   #Oval {
     stroke: var(--icon-color);
   }
-  @keyframes rotateIcon {
-    from { transform: rotate(var(--reverse-rotation)); }
-    to { transform: rotate(var(--rotation)); }
-  }
 `
 
 export const IconWrapper = styled.a`
