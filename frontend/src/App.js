@@ -24,7 +24,7 @@ class App extends Component {
           allSongs: songs,
           ready: true
         })
-      }).catch(error => console.log('Error:', error));
+      });
   }
 
   updateSearch = (changeEvent) => {
@@ -78,7 +78,6 @@ const AvailableSongs = styled.article`
 
 const filterSearch = (searchKeyword) =>
   (song) => {
-    if (!song.title || !song.artist) console.log(song)
     if (searchKeyword === "") return true;
     return compareStrings(song.title, searchKeyword)
     || compareStrings(song.artist, searchKeyword)
