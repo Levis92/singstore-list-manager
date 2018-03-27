@@ -7,7 +7,7 @@ from list_manager.db.tables import Song
 @db_session
 def insert_json_data_into_db(session):
     with open(config.SONGS_JSON_URL) as f:
-        songs = json.loads(f.read())
+        songs = json.load(f)
         for song in songs:
             new_song = Song(
                 title=song['title'],
